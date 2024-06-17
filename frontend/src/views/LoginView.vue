@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="circle circle-top"></div>
-    <div class="circle circle-bottom"></div>    
+    <div class="circle circle-bottom"></div>
     <div class="login-content-wrapper">
       <div class="login-image-wrapper">
         <img src="../assets/img/image1.png" alt="logo" class="small-image">
@@ -32,7 +32,7 @@
           </div>
         </form>
 
-        <p>Don't have an account? <router-link to="/signup"><b>Sign up</b></router-link></p>
+        <p>Don't have an account? <router-link to="/register"><b>Sign up</b></router-link></p>
       </div>
     </div>
   </div>
@@ -85,7 +85,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  position: relative; 
+  position: relative;
 }
 
 .login-content-wrapper {
@@ -99,7 +99,7 @@ body {
   padding: 40px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -107,7 +107,7 @@ body {
   font-size: 26px;
   text-align: left;
   margin: 20px 0;
-  margin-left: 50px; 
+  margin-left: 50px;
 }
 
 .large-image {
@@ -149,7 +149,7 @@ form {
 .form-group {
   width: 100%;
   max-width: 350px;
-  text-align: left; 
+  text-align: left;
   margin-bottom: 20px;
   font-weight: 500;
 }
@@ -160,9 +160,9 @@ label {
 }
 
 input {
-  width: 100%; 
+  width: 100%;
   padding: 10px;
-  border: 2px solid #251D59; 
+  border: 2px solid #251D59;
   border-radius: 12px;
 }
 
