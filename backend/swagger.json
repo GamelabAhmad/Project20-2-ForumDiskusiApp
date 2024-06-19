@@ -432,78 +432,235 @@
             }
           }
         }
+      },
+      "/followers": {
+        "post": {
+          "tags": ["Followers"],
+          "summary": "Create a new follower",
+          "description": "Add a new follower to the database",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Follower object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateFollowerRequest"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Follower created successfully"
+            },
+            "500": {
+              "description": "Failed to create follower"
+            }
+          }
+        },
+        "get": {
+          "tags": ["Followers"],
+          "summary": "Get all followers",
+          "description": "Retrieve all followers from the database",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "A list of followers",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Follower"
+                }
+              }
+            },
+            "500": {
+              "description": "Failed to retrieve followers"
+            }
+          }
+        }
+      },
+      "/followers/{id}": {
+        "get": {
+          "tags": ["Followers"],
+          "summary": "Get a follower by ID",
+          "description": "Retrieve a specific follower by its ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the follower to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A follower object",
+              "schema": {
+                "$ref": "#/definitions/Follower"
+              }
+            },
+            "404": {
+              "description": "Follower not found"
+            },
+            "500": {
+              "description": "Failed to retrieve follower"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Followers"],
+          "summary": "Update a follower by ID",
+          "description": "Update a specific follower by its ID",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the follower to update"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Follower object with updated data",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateFollowerRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Follower updated successfully"
+            },
+            "404": {
+              "description": "Follower not found"
+            },
+            "500": {
+              "description": "Failed to update follower"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Followers"],
+          "summary": "Delete a follower by ID",
+          "description": "Delete a specific follower by its ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the follower to delete"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Follower deleted successfully"
+            },
+            "404": {
+              "description": "Follower not found"
+            },
+            "500": {
+              "description": "Failed to delete follower"
+            }
+          }
+        }
       }
     },
     "definitions": {
       "Discussion": {
         "type": "object",
-        "required": ["user_id", "category_id", "title"],
+        "required": ["title", "content", "id_category", "id_user"],
         "properties": {
-          "user_id": {
+          "id": {
             "type": "integer",
-            "description": "ID of the user who creates the discussion"
-          },
-          "category_id": {
-            "type": "integer",
-            "description": "ID of the category the discussion belongs to"
+            "description": "ID of the discussion"
           },
           "title": {
             "type": "string",
             "description": "Title of the discussion"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the discussion"
+          },
+          "id_category": {
+            "type": "integer",
+            "description": "ID of the related category"
+          },
+          "id_user": {
+            "type": "integer",
+            "description": "ID of the user who created the discussion"
           }
         }
       },
       "CreateDiscussionRequest": {
         "type": "object",
-        "required": ["user_id", "category_id", "title"],
+        "required": ["title", "content", "id_category", "id_user"],
         "properties": {
-          "user_id": {
-            "type": "integer",
-            "description": "ID of the user who creates the discussion"
-          },
-          "category_id": {
-            "type": "integer",
-            "description": "ID of the category the discussion belongs to"
-          },
           "title": {
             "type": "string",
             "description": "Title of the discussion"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the discussion"
+          },
+          "id_category": {
+            "type": "integer",
+            "description": "ID of the related category"
+          },
+          "id_user": {
+            "type": "integer",
+            "description": "ID of the user who created the discussion"
           }
         }
       },
       "Answer": {
         "type": "object",
-        "required": ["user_id", "discussion_id", "answer"],
+        "required": ["content", "id_discussion", "id_user"],
         "properties": {
-          "user_id": {
+          "id": {
             "type": "integer",
-            "description": "ID of the user who creates the answer"
+            "description": "ID of the answer"
           },
-          "discussion_id": {
-            "type": "integer",
-            "description": "ID of the discussion the answer belongs to"
-          },
-          "answer": {
+          "content": {
             "type": "string",
             "description": "Content of the answer"
+          },
+          "id_discussion": {
+            "type": "integer",
+            "description": "ID of the related discussion"
+          },
+          "id_user": {
+            "type": "integer",
+            "description": "ID of the user who created the answer"
           }
         }
       },
       "CreateAnswerRequest": {
         "type": "object",
-        "required": ["user_id", "discussion_id", "answer"],
+        "required": ["content", "id_discussion", "id_user"],
         "properties": {
-          "user_id": {
-            "type": "integer",
-            "description": "ID of the user who creates the answer"
-          },
-          "discussion_id": {
-            "type": "integer",
-            "description": "ID of the discussion the answer belongs to"
-          },
-          "answer": {
+          "content": {
             "type": "string",
             "description": "Content of the answer"
+          },
+          "id_discussion": {
+            "type": "integer",
+            "description": "ID of the related discussion"
+          },
+          "id_user": {
+            "type": "integer",
+            "description": "ID of the user who created the answer"
           }
         }
       },
@@ -511,7 +668,11 @@
         "type": "object",
         "required": ["name"],
         "properties": {
-          "name_categories": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the category"
+          },
+          "name": {
             "type": "string",
             "description": "Name of the category"
           }
@@ -521,9 +682,41 @@
         "type": "object",
         "required": ["name"],
         "properties": {
-          "name_categories": {
+          "name": {
             "type": "string",
             "description": "Name of the category"
+          }
+        }
+      },
+      "Follower": {
+        "type": "object",
+        "required": ["id_followed", "id_follower"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the follower relationship"
+          },
+          "id_followed": {
+            "type": "integer",
+            "description": "ID of the followed user"
+          },
+          "id_follower": {
+            "type": "integer",
+            "description": "ID of the follower"
+          }
+        }
+      },
+      "CreateFollowerRequest": {
+        "type": "object",
+        "required": ["id_followed", "id_follower"],
+        "properties": {
+          "id_followed": {
+            "type": "integer",
+            "description": "ID of the followed user"
+          },
+          "id_follower": {
+            "type": "integer",
+            "description": "ID of the follower"
           }
         }
       }

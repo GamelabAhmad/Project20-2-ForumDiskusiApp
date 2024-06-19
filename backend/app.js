@@ -15,6 +15,7 @@ var usersRouter = require('./routes/userRoutes');
 var categoriesRouter = require('./routes/categoryRoutes');
 var discussionsRouter = require('./routes/discussionRoutes');
 var answersRouter = require('./routes/answerRoutes');
+var followersRouter = require('./routes/followerRoutes');
 
 
 var app = express();
@@ -36,6 +37,7 @@ app.use('/', usersRouter);
 app.use('/', categoriesRouter); // Tambahkan route untuk categories
 app.use('/', discussionsRouter);
 app.use('/', answersRouter);
+app.use('/', followersRouter);
 
 
 // Catch 404 and forward to error handler
