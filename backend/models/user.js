@@ -56,6 +56,16 @@ const User = {
     }
   },
 
+  findByEmail: async (email) => {
+    const sql = "SELECT * FROM tbl_users WHERE email = ?";
+    try {
+      const [rows] = await db.query(sql, [email]);
+      return rows[0];
+    } catch (err) {
+      throw err;
+    }
+  },
+
   findAll: async () => {
     const sql = "SELECT * FROM tbl_users";
     try {

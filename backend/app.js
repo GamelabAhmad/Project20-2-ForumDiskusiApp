@@ -3,12 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
+var loginRouter = require('./routes/loginRoutes');
+var registerRouter = require('./routes/registerRoutes');
 var usersRouter = require('./routes/userRoutes');
-var categoriesRouter = require('./routes/categoryRoutes'); // Tambahkan require untuk categoryRoutes
+var categoriesRouter = require('./routes/categoryRoutes');
 var discussionsRouter = require('./routes/discussionRoutes');
 var answersRouter = require('./routes/answerRoutes');
+
 
 var app = express();
 
@@ -18,8 +22,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 
 app.use('/', indexRouter);
+app.use('/', loginRouter)
+app.use('/', registerRouter);
 app.use('/', usersRouter);
 app.use('/', categoriesRouter); // Tambahkan route untuk categories
 app.use('/', discussionsRouter);

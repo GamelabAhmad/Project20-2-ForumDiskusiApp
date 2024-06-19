@@ -1,28 +1,33 @@
+const bcrypt = require('bcrypt');
+const cloudinary = require('cloudinary').v2;
 const User = require("../models/user");
+const jwt = require('jsonwebtoken');
 
-exports.createUser = (req, res) => {
-  const userData = req.body;
-  User.create(userData)
-    .then((result) => {
-      res.status(201).send("User added successfully");
-    })
-    .catch((err) => {
-      console.error("Failed to add user:", err);
-      res.status(500).send("Failed to add user");
-    });
-};
+cloudinary.config({
+  cloud_name: 'dmz1k0k6x',
+  api_key: '675575814148746',
+  api_secret: '4pWke083UuZW33-ttZXnQ2ZtlSU'
+});
 
-exports.updateUser = (req, res) => {
+exports.updateUser = async (req, res) => {
   const id = req.params.id;
   const userData = req.body;
-  User.update(id, userData)
-    .then((result) => {
-      res.status(200).send("User updated successfully");
-    })
-    .catch((err) => {
-      console.error("Failed to update user:", err);
-      res.status(500).send("Failed to update user");
-    });
+
+  try {
+    if (userData.password) {
+      const saltRounds = 10;
+      userData.password = await bcrypt.hash(userData.password, saltRounds);
+    }
+    if (userData.picture) {
+      const uploadResult = await cloudinary.uploader.upload(userData.picture);
+      userData.picture = uploadResult.secure_url;
+    }
+    const result = await User.update(id, userData);
+    res.status(200).send("User updated successfully");
+  } catch (err) {
+    console.error("Failed to update user:", err);
+    res.status(500).send("Failed to update user");
+  }
 };
 
 exports.deleteUser = (req, res) => {
@@ -68,4 +73,4 @@ exports.getAllUsers = (req, res) => {
       console.error("Failed to get users:", err);
       res.status(500).send("Failed to get users");
     });
-  };
+};
