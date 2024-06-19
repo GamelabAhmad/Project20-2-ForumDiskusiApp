@@ -2,10 +2,10 @@ const db = require("../library/database");
 
 const Category = {
   create: async (categoryData) => {
-    const { name_category } = categoryData;
-    const sql = "INSERT INTO tbl_categories (name_category) VALUES (?)";
+    const { name_categories } = categoryData;
+    const sql = "INSERT INTO tbl_categories (name_categories) VALUES (?)";
     try {
-      const [result] = await db.query(sql, [name_category]);
+      const [result] = await db.query(sql, [name_categories]);
       return result;
     } catch (err) {
       throw err;
@@ -13,11 +13,11 @@ const Category = {
   },
 
   update: async (id, categoryData) => {
-    const { name_category } = categoryData;
+    const { name_categories } = categoryData;
     const sql =
-      "UPDATE tbl_categories SET name_category = ? WHERE id_category = ?";
+      "UPDATE tbl_categories SET name_categories = ? WHERE id_categories = ?";
     try {
-      const [result] = await db.query(sql, [name_category, id]);
+      const [result] = await db.query(sql, [name_categories, id]);
       return result;
     } catch (err) {
       throw err;
@@ -25,7 +25,7 @@ const Category = {
   },
 
   delete: async (id) => {
-    const sql = "DELETE FROM tbl_categories WHERE id_category = ?";
+    const sql = "DELETE FROM tbl_categories WHERE id_categories = ?";
     try {
       const [result] = await db.query(sql, [id]);
       return result;
@@ -35,7 +35,7 @@ const Category = {
   },
 
   findById: async (id) => {
-    const sql = "SELECT * FROM tbl_categories WHERE id_category = ?";
+    const sql = "SELECT * FROM tbl_categories WHERE id_categories = ?";
     try {
       const [result] = await db.query(sql, [id]);
       return result[0];
@@ -64,7 +64,7 @@ const Category = {
   },
 
   resetId: async(id, newId) => {
-    const sql = "UPDATE tbl_categories SET id_category = ? WHERE id_category = ?;";
+    const sql = "UPDATE tbl_categories SET id_categories = ? WHERE id_categories = ?;";
     try {
       return await db.query(sql, [newId, id]);
     } catch (err) {

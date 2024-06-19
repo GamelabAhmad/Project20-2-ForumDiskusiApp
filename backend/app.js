@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/loginRoutes');
@@ -17,6 +20,7 @@ var answersRouter = require('./routes/answerRoutes');
 var app = express();
 
 // Middleware setup
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,6 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', indexRouter);
 app.use('/', loginRouter)
 app.use('/', registerRouter);

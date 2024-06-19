@@ -1,0 +1,532 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "API Documentation",
+      "description": "API yang sudah siap untuk digunakan sebagai kebutuhan Forum Diskusi untuk Project 20-2 namun dari tim FrontEnd hanya memberikan janji manis tinggal push yang nyatanya pupus."
+    },
+    "host": "localhost:8105",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/discussions": {
+        "post": {
+          "tags": ["Discussions"],
+          "summary": "Create a new discussion",
+          "description": "Add a new discussion to the database",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Discussion object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateDiscussionRequest"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Discussion created successfully"
+            },
+            "500": {
+              "description": "Failed to create discussion"
+            }
+          }
+        },
+        "get": {
+          "tags": ["Discussions"],
+          "summary": "Get all discussions",
+          "description": "Retrieve all discussions from the database",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "A list of discussions",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Discussion"
+                }
+              }
+            },
+            "500": {
+              "description": "Failed to retrieve discussions"
+            }
+          }
+        }
+      },
+      "/discussions/{id}": {
+        "get": {
+          "tags": ["Discussions"],
+          "summary": "Get a discussion by ID",
+          "description": "Retrieve a specific discussion by its ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the discussion to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A discussion object",
+              "schema": {
+                "$ref": "#/definitions/Discussion"
+              }
+            },
+            "404": {
+              "description": "Discussion not found"
+            },
+            "500": {
+              "description": "Failed to retrieve discussion"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Discussions"],
+          "summary": "Update a discussion by ID",
+          "description": "Update a specific discussion by its ID",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the discussion to update"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Discussion object with updated data",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Discussion"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Discussion updated successfully"
+            },
+            "404": {
+              "description": "Discussion not found"
+            },
+            "500": {
+              "description": "Failed to update discussion"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Discussions"],
+          "summary": "Delete a discussion by ID",
+          "description": "Delete a specific discussion by its ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the discussion to delete"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Discussion deleted successfully"
+            },
+            "404": {
+              "description": "Discussion not found"
+            },
+            "500": {
+              "description": "Failed to delete discussion"
+            }
+          }
+        }
+      },
+      "/answers": {
+        "post": {
+          "tags": ["Answers"],
+          "summary": "Create a new answer",
+          "description": "Add a new answer to the database",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Answer object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateAnswerRequest"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Answer created successfully"
+            },
+            "500": {
+              "description": "Failed to create answer"
+            }
+          }
+        },
+        "get": {
+          "tags": ["Answers"],
+          "summary": "Get all answers",
+          "description": "Retrieve all answers from the database",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "A list of answers",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Answer"
+                }
+              }
+            },
+            "500": {
+              "description": "Failed to retrieve answers"
+            }
+          }
+        }
+      },
+      "/answers/{id}": {
+        "get": {
+          "tags": ["Answers"],
+          "summary": "Get an answer by ID",
+          "description": "Retrieve a specific answer by its ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the answer to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "An answer object",
+              "schema": {
+                "$ref": "#/definitions/Answer"
+              }
+            },
+            "404": {
+              "description": "Answer not found"
+            },
+            "500": {
+              "description": "Failed to retrieve answer"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Answers"],
+          "summary": "Update an answer by ID",
+          "description": "Update a specific answer by its ID",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the answer to update"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Answer object with updated data",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateAnswerRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Answer updated successfully"
+            },
+            "404": {
+              "description": "Answer not found"
+            },
+            "500": {
+              "description": "Failed to update answer"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Answers"],
+          "summary": "Delete an answer by ID",
+          "description": "Delete a specific answer by its ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the answer to delete"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Answer deleted successfully"
+            },
+            "404": {
+              "description": "Answer not found"
+            },
+            "500": {
+              "description": "Failed to delete answer"
+            }
+          }
+        }
+      },
+      "/categories": {
+        "post": {
+          "tags": ["Categories"],
+          "summary": "Create a new category",
+          "description": "Add a new category to the database",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Category object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateCategoryRequest"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Category created successfully"
+            },
+            "500": {
+              "description": "Failed to create category"
+            }
+          }
+        },
+        "get": {
+          "tags": ["Categories"],
+          "summary": "Get all categories",
+          "description": "Retrieve all categories from the database",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "A list of categories",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Category"
+                }
+              }
+            },
+            "500": {
+              "description": "Failed to retrieve categories"
+            }
+          }
+        }
+      },
+      "/categories/{id}": {
+        "get": {
+          "tags": ["Categories"],
+          "summary": "Get a category by ID",
+          "description": "Retrieve a specific category by its ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the category to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A category object",
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            },
+            "404": {
+              "description": "Category not found"
+            },
+            "500": {
+              "description": "Failed to retrieve category"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Categories"],
+          "summary": "Update a category by ID",
+          "description": "Update a specific category by its ID",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the category to update"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Category object with updated data",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateCategoryRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Category updated successfully"
+            },
+            "404": {
+              "description": "Category not found"
+            },
+            "500": {
+              "description": "Failed to update category"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Categories"],
+          "summary": "Delete a category by ID",
+          "description": "Delete a specific category by its ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the category to delete"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Category deleted successfully"
+            },
+            "404": {
+              "description": "Category not found"
+            },
+            "500": {
+              "description": "Failed to delete category"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Discussion": {
+        "type": "object",
+        "required": ["user_id", "category_id", "title"],
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "description": "ID of the user who creates the discussion"
+          },
+          "category_id": {
+            "type": "integer",
+            "description": "ID of the category the discussion belongs to"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the discussion"
+          }
+        }
+      },
+      "CreateDiscussionRequest": {
+        "type": "object",
+        "required": ["user_id", "category_id", "title"],
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "description": "ID of the user who creates the discussion"
+          },
+          "category_id": {
+            "type": "integer",
+            "description": "ID of the category the discussion belongs to"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the discussion"
+          }
+        }
+      },
+      "Answer": {
+        "type": "object",
+        "required": ["user_id", "discussion_id", "answer"],
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "description": "ID of the user who creates the answer"
+          },
+          "discussion_id": {
+            "type": "integer",
+            "description": "ID of the discussion the answer belongs to"
+          },
+          "answer": {
+            "type": "string",
+            "description": "Content of the answer"
+          }
+        }
+      },
+      "CreateAnswerRequest": {
+        "type": "object",
+        "required": ["user_id", "discussion_id", "answer"],
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "description": "ID of the user who creates the answer"
+          },
+          "discussion_id": {
+            "type": "integer",
+            "description": "ID of the discussion the answer belongs to"
+          },
+          "answer": {
+            "type": "string",
+            "description": "Content of the answer"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name_categories": {
+            "type": "string",
+            "description": "Name of the category"
+          }
+        }
+      },
+      "CreateCategoryRequest": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name_categories": {
+            "type": "string",
+            "description": "Name of the category"
+          }
+        }
+      }
+    }
+  }
+  
